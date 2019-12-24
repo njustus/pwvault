@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row row-centered">
+    <h1>Create a new vault..</h1>
+  </div>
+
+  <div class="row row-centered">
+    <form [formGroup]="vaultForm" class="col-6" (ngSubmit)="createVault()">
+      <label for="sourceFile">Vault file</label>
+      <div class="input-group mb-3">
+        <input class="form-control" formControlName="sourceFile" placeholder="Vault file" disabled="true" />
+        <div class="input-group-append">
+          <button class="btn btn-secondary" (click)="selectVaultFile()">Select</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Vault name:</label>
+        <input class="form-control" id="name" formControlName="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Vault description:</label>
+        <input class="form-control" id="description" formControlName="description" />
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" type="submit" [disabled]="vaultForm.invalid">Create</button>
+        <button class="btn-warning" [disabled]="true">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>
