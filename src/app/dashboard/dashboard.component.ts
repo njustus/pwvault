@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private readonly cryptoFS: CryptoFileService<Vault>) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const vault = {
       name: "test-vault",
       sourceFile: "./vault.enc",
@@ -24,10 +24,10 @@ export class DashboardComponent implements OnInit {
       }, 5)
     }
 
-    this.cryptoFS.write(vault, "123456", vault.sourceFile)
+    await this.cryptoFS.write(vault, "123456", vault.sourceFile)
     console.log("encoded to: ", vault.sourceFile)
 
-    console.log("decoded: ", this.cryptoFS.read("123456", vault.sourceFile))
+    console.log("decoded: ", await this.cryptoFS.read("123456", vault.sourceFile))
   }
 
 }
