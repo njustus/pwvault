@@ -4,8 +4,8 @@
   </div>
 
   <div class="row row-centered">
-    <form [formGroup]="vaultForm" class="col-6" (ngSubmit)="createVault()">
-      <label for="sourceFile">Vault file</label>
+    <form [formGroup]="vaultForm" class="col-6">
+      <label for="sourceFile">Vault file:</label>
       <div class="input-group mb-3">
         <input class="form-control" formControlName="sourceFile" placeholder="Vault file" disabled="true" />
         <div class="input-group-append">
@@ -19,12 +19,17 @@
       </div>
 
       <div class="form-group">
+        <label for="password">Master key:</label>
+        <input class="form-control" id="password" type="password" formControlName="password" />
+      </div>
+
+      <div class="form-group">
         <label for="description">Vault description:</label>
         <input class="form-control" id="description" formControlName="description" />
       </div>
 
       <div class="btn-group">
-        <button class="btn-primary" type="submit" [disabled]="vaultForm.invalid">Create</button>
+        <button class="btn-primary" [disabled]="vaultForm.invalid" (click)="createVault()">Create</button>
         <button class="btn-warning" [disabled]="true">Reset</button>
       </div>
     </form>

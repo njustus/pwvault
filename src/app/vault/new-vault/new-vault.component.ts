@@ -4,6 +4,8 @@ import * as electron from 'electron';
 import * as R from 'ramda'
 import { filter } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { VaultStoreService } from '../vault-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-vault',
@@ -14,13 +16,18 @@ export class NewVaultComponent implements OnInit {
 
   public readonly vaultForm: FormGroup;
 
-  constructor() {
+  constructor(private readonly vaultService: VaultStoreService,
+    private readonly router: Router) {
     this.vaultForm = new FormGroup({
       sourceFile: new FormControl('', [
         Validators.required
       ]),
       name: new FormControl('', [
         Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
       ]),
       description: new FormControl('', [
         Validators.required
@@ -48,6 +55,18 @@ export class NewVaultComponent implements OnInit {
   }
 
   createVault() {
+    const vault = this.vaultForm.value
+    const password = vault.password
+    delete vault.password
+
     console.log("creating vault: ", this.vaultForm.value)
+    this.vaultService.saveVault(vault, password)
+      .then(path => {
+        const notification = new Notification("Vault created!", {
+          body: `vault '${vault.name}' created at: ${path}`
+        })
+
+        this.router.navigate(['/'])
+      })
   }
 }
