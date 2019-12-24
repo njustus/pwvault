@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Vault } from '../vault/vault';
 import { CryptoFileService } from '../core/services/crypto-file.service';
 import * as R from 'ramda'
+import * as electron from 'electron';
+import { filter } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,22 +15,13 @@ export class DashboardComponent implements OnInit {
 
   constructor(private readonly cryptoFS: CryptoFileService<Vault>) { }
 
-  async ngOnInit() {
-    const vault = {
-      name: "test-vault",
-      sourceFile: "./vault.enc",
-      description: 'test',
-      entries: R.repeat({
-        name: 'GitHub',
-        username: 'pwv-user',
-        password: "awesomeness123456"
-      }, 5)
-    }
+  ngOnInit() { }
 
-    await this.cryptoFS.write(vault, "123456", vault.sourceFile)
-    console.log("encoded to: ", vault.sourceFile)
 
-    console.log("decoded: ", await this.cryptoFS.read("123456", vault.sourceFile))
+  openVault() {
+    const promise = electron.remote.dialog.showOpenDialog({ title: 'Open vault' })
+    from(promise)
+      .pipe(filter(obj => !obj.canceled))
+      .subscribe(obj => console.log("opening: ", obj.filePaths[0]), err => console.error("didn't open dialog: ", err))
   }
-
 }
