@@ -7,7 +7,8 @@ import { createHash } from "crypto";
   providedIn: 'root'
 })
 export class VaultStoreService {
-  constructor(private readonly fileService: CryptoFileService<Vault>) { }
+  constructor(private readonly fileService: CryptoFileService<Vault>) {
+  }
 
   async saveVault(vault: Vault, rawPassword: string): Promise<string> {
     const hashedPassword = this.hashPassword(rawPassword)
@@ -21,6 +22,6 @@ export class VaultStoreService {
   }
 
   private hashPassword(pw: string): string {
-    return createHash('sha256').digest('hex')
+    return createHash('sha256').update(pw).digest('hex')
   }
 }
