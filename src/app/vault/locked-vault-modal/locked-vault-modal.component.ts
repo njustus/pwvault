@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { VaultStoreService } from '../vault-store.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-locked-vault-modal',
@@ -14,7 +16,10 @@ export class LockedVaultModalComponent implements OnInit {
   readonly passwordControl: FormControl
   error?: string = undefined
 
-  constructor(private readonly vaultService: VaultStoreService) {
+  constructor(
+    private readonly vaultService: VaultStoreService,
+    private readonly modalRef: BsModalRef,
+    private readonly router: Router) {
     this.passwordControl = new FormControl('', [Validators.required])
   }
 
@@ -33,4 +38,8 @@ export class LockedVaultModalComponent implements OnInit {
       })
   }
 
+  hide() {
+    this.modalRef.hide()
+    this.router.navigate(['dashboard'])
+  }
 }

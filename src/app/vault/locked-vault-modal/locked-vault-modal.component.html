@@ -22,3 +22,8 @@
     </div>
   </form>
 </div>
+
+<div class="modal-footer">
+  <button class="btn btn-warning" (click)="hide()">Dashboard</button>
+  <button class="btn btn-success" (click)="unlock()" [disabled]="passwordControl.invalid">Unlock</button>
+</div>
