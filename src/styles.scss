@@ -6,3 +6,12 @@
     justify-content: center;
   }
 }
+
+.fade-in {
+  animation: 1s fadein;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

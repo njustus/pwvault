@@ -12,6 +12,7 @@ export class LockedVaultModalComponent implements OnInit {
   vaultPath: string;
 
   readonly passwordControl: FormControl
+  error?: string = undefined
 
   constructor(private readonly vaultService: VaultStoreService) {
     this.passwordControl = new FormControl('', [Validators.required])
@@ -24,6 +25,12 @@ export class LockedVaultModalComponent implements OnInit {
     const password = this.passwordControl.value
     this.vaultService.openVault(this.vaultPath, password)
       .then(vault => console.log("vault opened: ", vault))
+      .catch(err => {
+        if (err.code === 'ERR_OSSL_BAD_DECRYPT') {
+          this.error = undefined
+          window.setTimeout(() => this.error = 'wrong masterkey!')
+        }
+      })
   }
 
 }
