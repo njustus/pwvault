@@ -17,6 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewVaultComponent } from './vault/new-vault/new-vault.component';
+import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, NewVaultComponent],
+  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
