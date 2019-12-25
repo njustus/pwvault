@@ -3,6 +3,7 @@ import { Validators, FormControl } from '@angular/forms';
 import { VaultStoreService } from '../vault-store.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { Vault } from '../vault';
 
 @Component({
   selector: 'app-locked-vault-modal',
@@ -15,6 +16,7 @@ export class LockedVaultModalComponent implements OnInit {
 
   readonly passwordControl: FormControl
   error?: string = undefined
+  openedVault?: Vault
 
   constructor(
     private readonly vaultService: VaultStoreService,
@@ -29,7 +31,10 @@ export class LockedVaultModalComponent implements OnInit {
   unlock() {
     const password = this.passwordControl.value
     this.vaultService.openVault(this.vaultPath, password)
-      .then(vault => console.log("vault opened: ", vault))
+      .then(vault => {
+        this.modalRef.content = vault
+        this.modalRef.hide()
+      })
       .catch(err => {
         if (err.code === 'ERR_OSSL_BAD_DECRYPT') {
           this.error = undefined
