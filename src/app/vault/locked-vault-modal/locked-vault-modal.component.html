@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h2 class="modal-title">Locked Vault</h2>
+</div>
+
+<div class="modal-body row-centered">
+  <h4 class="col-12">
+    Vault at: {{vaultPath}} is locked!
+  </h4>
+
+  <form class="col-12" (submit)="unlock()">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">key</span>
+      </div>
+      <input type="password" class="form-control" placeholder="Masterkey" [formControl]="passwordControl">
+    </div>
+  </form>
+</div>

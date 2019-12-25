@@ -15,6 +15,11 @@ export class VaultStoreService {
     return vault.sourceFile
   }
 
+  async openVault(vaultPath: string, rawPassword: string): Promise<Vault> {
+    const hashedPassword = this.hashPassword(rawPassword)
+    return await this.fileService.read(hashedPassword, vaultPath)
+  }
+
   private hashPassword(pw: string): string {
     return createHash('sha256').digest('hex')
   }

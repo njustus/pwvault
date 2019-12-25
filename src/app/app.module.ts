@@ -13,11 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewVaultComponent } from './vault/new-vault/new-vault.component';
 import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard.component';
+import { LockedVaultModalComponent } from './vault/locked-vault-modal/locked-vault-modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -25,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent],
+  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent, LockedVaultModalComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -33,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     AppRoutingModule,
+    ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -42,6 +45,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    LockedVaultModalComponent
+  ]
 })
 export class AppModule { }
