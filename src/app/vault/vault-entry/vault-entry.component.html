@@ -1,0 +1,19 @@
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">{{entry.name}}</h4>
+  </div>
+  <div class="card-body">
+
+    <div class="input-group" *ngFor="let field of entryFields">
+      <div class="input-group-prepend">
+        <span class="input-group-text">{{field.icon}}</span>
+      </div>
+      <label class="form-control" *ngIf="field.protected; else unprotected">{{stars}}</label>
+      <ng-template #unprotected>
+        <label class="form-control">{{field.value}}</label>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

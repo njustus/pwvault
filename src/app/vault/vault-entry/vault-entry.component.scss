@@ -1,0 +1,8 @@
+.vaultentry-list {
+  list-style: none;
+  font-family: monospace;
+
+  & > li {
+    padding: .8em;
+  }
+}

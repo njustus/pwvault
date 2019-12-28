@@ -20,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewVaultComponent } from './vault/new-vault/new-vault.component';
 import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard.component';
 import { LockedVaultModalComponent } from './vault/locked-vault-modal/locked-vault-modal.component';
+import { VaultEntryComponent } from './vault/vault-entry/vault-entry.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -27,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent, LockedVaultModalComponent],
+  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent, LockedVaultModalComponent, VaultEntryComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

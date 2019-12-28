@@ -4,13 +4,14 @@
 <div class="container" *ngIf="(vault$ | async) as vault">
   <div class="row">
     <div class="col-8 list-group">
-      <button class="list-group-item list-group-item-action" *ngFor="let entry of vault.entries">
+      <button class="list-group-item list-group-item-action" *ngFor="let entry of vault.entries" (click)="onEntryClicked(entry)">
         {{entry.name}}
       </button>
     </div>
 
     <div class="col-4">
-      selected item ..
+      <app-vault-entry [entry]="selectedEntry" *ngIf="selectedEntry; else empty"></app-vault-entry>
+      <ng-template #empty>no entry selected!</ng-template>
     </div>
   </div>
 </div>

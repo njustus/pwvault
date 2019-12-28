@@ -7,6 +7,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LockedVaultModalComponent } from '../locked-vault-modal/locked-vault-modal.component';
 import Mousetrap from 'mousetrap'
 import { Vault } from '../vault';
+import { VaultEntry } from '../vault-entry';
 
 @Component({
   selector: 'app-vault-dashboard',
@@ -18,6 +19,8 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   private readonly vaultPath$: Observable<string>
   private readonly vault$: Subject<Vault> = new Subject()
   private readonly locked$: Subject<boolean> = new Subject()
+
+  private selectedEntry?: VaultEntry
 
   constructor(private readonly activatedRoute: ActivatedRoute,
     private readonly modalService: BsModalService) {
@@ -48,6 +51,10 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   lockVault() {
     this.locked$.next(true)
+  }
+
+  onEntryClicked(entry: VaultEntry) {
+    this.selectedEntry = entry
   }
 
   private displayLockedModal(vaultPath: string) {
