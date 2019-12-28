@@ -54,6 +54,7 @@
     "@angular/router": "8.2.12",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
+    "@types/faker": "4.1.8",
     "@types/jasmine": "3.3.16",
     "@types/jasminewd2": "2.0.6",
     "@types/mocha": "5.2.7",
@@ -92,6 +93,7 @@
   },
   "dependencies": {
     "bootstrap": "4.4.1",
+    "faker": "4.1.0",
     "jquery": "3.4.1",
     "ngx-bootstrap": "5.2.0",
     "popper.js": "1.16.0",

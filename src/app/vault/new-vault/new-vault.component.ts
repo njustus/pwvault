@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as electron from 'electron';
-import * as R from 'ramda'
+import * as R from 'ramda';
+import * as faker from 'faker';
 import { filter } from 'rxjs/operators';
 import { from } from 'rxjs';
 import { VaultStoreService } from '../vault-store.service';
 import { Router } from '@angular/router';
+import { VaultEntry } from '../vault-entry';
+import { Vault } from '../vault';
+
+function generateFakeEntries(): VaultEntry[] {
+  return R.map(_x => ({
+    name: faker.internet.domainName(),
+    username: faker.internet.userName(),
+    password: faker.internet.password()
+  }),
+    R.repeat(1, 10))
+}
 
 @Component({
   selector: 'app-new-vault',
@@ -58,8 +70,9 @@ export class NewVaultComponent implements OnInit {
     const vault = this.vaultForm.value
     const password = vault.password
     delete vault.password
+    vault.entries = generateFakeEntries()
 
-    console.log("creating vault: ", this.vaultForm.value)
+    console.log("creating vault: ", vault)
     this.vaultService.saveVault(vault, password)
       .then(path => {
         const notification = new Notification("Vault created!", {
@@ -69,4 +82,5 @@ export class NewVaultComponent implements OnInit {
         this.router.navigate(['/'])
       })
   }
+
 }
