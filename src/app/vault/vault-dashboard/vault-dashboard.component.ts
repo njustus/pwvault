@@ -46,7 +46,10 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
       }
       const modalRef = this.modalService.show(LockedVaultModalComponent, options)
 
-      modalRef.content.openedVault$.pipe(first()).subscribe(vault => this.vault$.next(vault))
+      modalRef.content.openedVault$.pipe(first()).subscribe(vault => {
+        this.locked$.next(false)
+        this.vault$.next(vault)
+      })
     })
   }
 }

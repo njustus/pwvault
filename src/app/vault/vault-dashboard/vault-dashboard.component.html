@@ -1,1 +1,16 @@
-<p>vault-dashboard works!</p>
+
+<p *ngIf="locked$ | async">vault locked!</p>
+
+<div class="container" *ngIf="(vault$ | async) as vault">
+  <div class="row">
+    <div class="col-8 list-group">
+      <button class="list-group-item list-group-item-action" *ngFor="let entry of vault.entries">
+        {{entry.name}}
+      </button>
+    </div>
+
+    <div class="col-4">
+      selected item ..
+    </div>
+  </div>
+</div>
