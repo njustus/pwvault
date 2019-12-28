@@ -13,6 +13,25 @@ import { AppRoutingModule } from './app-routing.module';
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faMinus,
+  faCross,
+  faUserAlt,
+  faPencilAlt,
+  faKey,
+  faUnlock,
+  faLock,
+  faIdCard,
+  faAt,
+  faFolderOpen,
+  faSave,
+  faEye,
+  faEyeSlash,
+  faClone
+} from '@fortawesome/free-solid-svg-icons';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
@@ -36,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     AppRoutingModule,
+    FontAwesomeModule,
     ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -51,4 +71,25 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LockedVaultModalComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    //register used icons here
+    library.addIcons(
+      faPlus,
+      faMinus,
+      faCross,
+      faUserAlt,
+      faPencilAlt,
+      faKey,
+      faUnlock,
+      faLock,
+      faIdCard,
+      faAt,
+      faFolderOpen,
+      faSave,
+      faEye,
+      faEyeSlash,
+      faClone
+    )
+  }
+}

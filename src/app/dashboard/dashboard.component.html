@@ -3,8 +3,12 @@
 
   <div class="row row-centered">
     <div class="col-6 btn-group-vertical">
-      <button class="btn btn-primary btn-lg stretch" (click)="openVault()">Open vault ...</button>
-      <a class="btn btn-secondary btn-lg stretch" [routerLink]="'/vault/new'">New vault ...</a>
+      <button class="btn btn-primary btn-lg stretch" (click)="openVault()">
+        <fa-icon icon="folder-open"></fa-icon>
+        Open vault ...</button>
+      <a class="btn btn-secondary btn-lg stretch" [routerLink]="'/vault/new'">
+        <fa-icon icon="plus"></fa-icon>
+        New vault ...</a>
     </div>
 
   </div>

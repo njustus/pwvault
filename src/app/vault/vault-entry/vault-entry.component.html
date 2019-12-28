@@ -7,7 +7,7 @@
 
     <div class="input-group" *ngFor="let field of entryFields">
       <div class="input-group-prepend">
-        <span class="input-group-text">{{field.icon}}</span>
+        <fa-icon class="input-group-text" [icon]="field.icon"></fa-icon>
       </div>
       <label class="form-control" *ngIf="field.protected; else unprotected">{{stars}}</label>
       <ng-template #unprotected>

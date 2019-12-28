@@ -27,7 +27,7 @@ export class VaultEntryComponent implements OnInit {
   get entryFields(): EntryField[] {
     return [
       {
-        icon: '@',
+        icon: 'id-card',
         value: this.entry.username
       },
       {
