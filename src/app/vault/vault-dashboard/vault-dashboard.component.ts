@@ -49,8 +49,9 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  lockVault() {
+  lockVault(): boolean {
     this.locked$.next(true)
+    return false
   }
 
   onEntryClicked(entry: VaultEntry) {

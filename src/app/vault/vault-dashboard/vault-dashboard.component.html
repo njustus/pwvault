@@ -1,7 +1,17 @@
 
-<p *ngIf="locked$ | async">vault locked!</p>
-
 <div class="container" *ngIf="(vault$ | async) as vault">
+  <nav class="navbar navbar-expand row">
+    <ul class="navbar-nav col-3">
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/dashboard'">Dashboard</a></li>
+    </ul>
+    <ul class="navbar-nav col-6 justify-content-center">
+      <li class="nav-item"><a class="nav-link" href="#" (click)="lockVault()"><fa-icon icon="lock"></fa-icon> Lock Vault</a></li>
+    </ul>
+    <ul class="navbar-nav col-3 justify-content-end">
+      <li class="nav-item right"><a class="nav-link"><fa-icon icon="plus"></fa-icon> New Entry</a></li>
+    </ul>
+  </nav>
+
   <div class="row">
     <div class="col-8 list-group">
       <button class="list-group-item list-group-item-action" *ngFor="let entry of vault.entries" (click)="onEntryClicked(entry)">
