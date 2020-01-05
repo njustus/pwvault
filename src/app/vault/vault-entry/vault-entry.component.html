@@ -1,7 +1,10 @@
 
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title">{{entry.name}}</h4>
+    <h4 class="card-title">
+      <fa-icon [icon]="entry.icon"></fa-icon>
+      &nbsp; {{entry.name}}
+    </h4>
   </div>
   <div class="card-body">
 
