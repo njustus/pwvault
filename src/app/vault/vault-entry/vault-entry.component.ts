@@ -1,6 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VaultEntry } from '../vault-entry';
 import * as R from 'ramda'
+import { clipboard } from 'electron'
+
+function clearClipboard(): void {
+  console.log("clearing clipboard..")
+  clipboard.clear()
+}
 
 interface EntryField {
   icon: string
@@ -21,10 +27,10 @@ export class VaultEntryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
-  get entryFields(): EntryField[] {
+  public get entryFields(): EntryField[] {
     return [
       {
         icon: 'id-card',
@@ -36,5 +42,12 @@ export class VaultEntryComponent implements OnInit {
         protected: true
       }
     ]
+  }
+
+  public copyValue(field: EntryField): void {
+    clipboard.writeText(field.value)
+
+    //clear clipboard after 10 sec
+    setTimeout(clearClipboard, 10000)
   }
 }

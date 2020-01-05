@@ -13,6 +13,11 @@
       <ng-template #unprotected>
         <label class="form-control">{{field.value}}</label>
       </ng-template>
+      <div class="input-group-append">
+        <button class="btn btn-secondary" (click)="copyValue(field)">
+          <fa-icon icon="clone"></fa-icon>
+        </button>
+      </div>
     </div>
 
   </div>
