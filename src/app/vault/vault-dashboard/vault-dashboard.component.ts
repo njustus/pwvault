@@ -8,6 +8,7 @@ import { LockedVaultModalComponent } from '../locked-vault-modal/locked-vault-mo
 import Mousetrap from 'mousetrap'
 import { Vault } from '../vault';
 import { VaultEntry } from '../vault-entry';
+import { OpenedVaultService } from '../opened-vault.service';
 
 @Component({
   selector: 'app-vault-dashboard',
@@ -17,17 +18,20 @@ import { VaultEntry } from '../vault-entry';
 export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   private readonly vaultPath$: Observable<string>
-  private readonly vault$: Subject<Vault> = new Subject()
+  private readonly vault$: Observable<Vault>;
   private readonly locked$: Subject<boolean> = new Subject()
 
   private selectedEntry?: VaultEntry
 
   constructor(private readonly activatedRoute: ActivatedRoute,
-    private readonly modalService: BsModalService) {
+    private readonly modalService: BsModalService,
+    private readonly openedVaultService: OpenedVaultService
+  ) {
 
     this.vaultPath$ = this.activatedRoute.queryParamMap.pipe(
       map(params => params.get(vaultAddressKey)),
       map(encodedPath => decodeURIComponent(encodedPath)))
+    this.vault$ = openedVaultService.vault$;
   }
 
   ngOnInit() {
@@ -67,7 +71,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
     modalRef.content.openedVault$.pipe(first()).subscribe(vault => {
       this.locked$.next(false)
-      this.vault$.next(vault)
+      this.openedVaultService.updateVault(vault)
     })
   }
 }
