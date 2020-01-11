@@ -25,7 +25,6 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
-              "src/assets/darkly-bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [

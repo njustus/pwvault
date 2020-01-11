@@ -22,7 +22,9 @@
 
     <div class="col-4">
       <app-vault-entry [entry]="selectedEntry" *ngIf="selectedEntry; else empty"></app-vault-entry>
-      <ng-template #empty>no entry selected!</ng-template>
+      <ng-template #empty>
+        <p class="hint">no entry selected!</p>
+      </ng-template>
     </div>
   </div>
 </div>

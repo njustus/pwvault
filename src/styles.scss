@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~assets/theme/flatly-variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~assets/theme/flatly-bootswatch';
+
 @import '~assets/scss/util';
 
 .row {
   &-centered {
     justify-content: center;
   }
+}
+
+.hint {
+  @extend .text-info;
+  text-align: center;
 }
 
 .fade-in {
