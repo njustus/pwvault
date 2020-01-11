@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { vaultAddressKey } from 'app/core/constants';
 import { map, share, first, distinctUntilChanged, filter, flatMap, tap } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LockedVaultModalComponent } from '../locked-vault-modal/locked-vault-modal.component';
 import Mousetrap from 'mousetrap'
-import { Vault } from '../vault';
+import { Vault, decodeVaultAddressParam, encodeVaultAddressParam } from '../vault';
 import { VaultEntry } from '../vault-entry';
 import { OpenedVaultService } from '../opened-vault.service';
 
@@ -24,13 +24,13 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   private selectedEntry?: VaultEntry
 
   constructor(private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
     private readonly modalService: BsModalService,
-    private readonly openedVaultService: OpenedVaultService
-  ) {
+    private readonly openedVaultService: OpenedVaultService) {
 
     this.vaultPath$ = this.activatedRoute.queryParamMap.pipe(
-      map(params => params.get(vaultAddressKey)),
-      map(encodedPath => decodeURIComponent(encodedPath)))
+      map(decodeVaultAddressParam)
+    )
     this.vault$ = openedVaultService.vault$;
   }
 
@@ -60,6 +60,23 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   onEntryClicked(entry: VaultEntry) {
     this.selectedEntry = entry
+  }
+
+  editEntry(entry?: VaultEntry) {
+    if (entry) {
+      console.error("editing not implemented yet!")
+    } else {
+      console.log("new entry")
+      this.vaultPath$.pipe(
+        map(encodeVaultAddressParam),
+        first()
+      ).subscribe(params => {
+        console.log("got params")
+        this.router.navigate(['/vault/vault-entry/edit'], { queryParams: params })
+      })
+    }
+
+    return false
   }
 
   private displayLockedModal(vaultPath: string) {

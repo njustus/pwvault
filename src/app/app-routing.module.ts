@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import * as R from 'ramda';
 import { NewVaultComponent } from './vault/new-vault/new-vault.component';
 import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard.component';
+import { EditVaultEntryComponent } from './vault/vault-entry/edit-vault-entry/edit-vault-entry.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,9 @@ const routes: Routes = [{
 }, {
   path: 'vault/new',
   component: NewVaultComponent
+}, {
+  path: "vault/vault-entry/edit",
+  component: EditVaultEntryComponent
 }, {
   path: 'vault',
   component: VaultDashboardComponent

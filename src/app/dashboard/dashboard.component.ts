@@ -3,7 +3,7 @@ import * as electron from 'electron';
 import { from } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { CryptoFileService } from '../core/services/crypto-file.service';
-import { Vault } from '../vault/vault';
+import { Vault, encodeVaultAddressParam } from '../vault/vault';
 import { Router } from '@angular/router';
 import { vaultAddressKey } from 'app/core/constants';
 import { RecentVaultsService } from 'app/core/services/recent-vaults.service';
@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
 
   openVault(vaultPath: string) {
     this.recentVaultsService.addVault(vaultPath)
-    const params = { [vaultAddressKey]: encodeURIComponent(vaultPath) }
-    this.router.navigate(['/vault'], { queryParams: params })
+    this.router.navigate(['/vault'], { queryParams: encodeVaultAddressParam(vaultPath) })
   }
 }

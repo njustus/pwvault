@@ -1,0 +1,30 @@
+<div class="container">
+  <h2 *ngIf="entryName; else newEntry">Edit entry: {{entryName}}</h2>
+  <ng-template #newEntry>
+    <h2>New entry</h2>
+  </ng-template>
+
+  <form [formGroup]="entryForm" (submit)="updateEntry()">
+    <div class="input-group">
+      <label for="entryName">Name</label>
+      <input class="form-control" id="entryName" formControlName="name" />
+    </div>
+
+    <div class="input-group">
+      <label for="entryUsername">Username</label>
+      <input class="form-control" id="entryUsername" formControlName="username" />
+    </div>
+
+    <div class="input-group">
+      <label for="entryPassword">Password</label>
+      <input class="form-control" id="entryPassword" type="password" formControlName="password" />
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" type="submit" [disabled]="entryForm.invalid">
+        <fa-icon icon="save"></fa-icon>
+        Save
+      </button>
+    </div>
+  </form>
+</div>
