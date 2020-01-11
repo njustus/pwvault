@@ -14,7 +14,7 @@
   </div>
 
   <div class="row row-centered mt-4">
-    <p class="col-6" *ngIf="recentVaults.length === 0">No previously opened vaults available!</p>
+    <p *ngIf="recentVaults.length === 0">No previously opened vaults available!</p>
     <div class="col-6 btn-group-vertical" *ngIf="recentVaults.length > 0">
       <button
         class="btn btn-outline-info btn-lg stretch"
