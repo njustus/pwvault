@@ -5,26 +5,33 @@
   </ng-template>
 
   <form [formGroup]="entryForm" (submit)="updateEntry()">
-    <div class="input-group">
-      <label for="entryName">Name</label>
-      <input class="form-control" id="entryName" formControlName="name" />
+    <div class="form-group row">
+      <label class="col-1" for="entryName">Name</label>
+      <div class="col-11">
+        <input class="form-control" id="entryName" formControlName="name" />
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="entryUsername">Username</label>
-      <input class="form-control" id="entryUsername" formControlName="username" />
+    <div class="form-group row">
+      <label class="col-1" for="entryUsername">Username</label>
+      <div class="col-11">
+        <input class="form-control" id="entryUsername" formControlName="username" />
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="entryPassword">Password</label>
-      <input class="form-control" id="entryPassword" type="password" formControlName="password" />
+    <div class="form-group row">
+      <label class="col-1" for="entryPassword">Password</label>
+      <div class="col-11">
+        <input class="form-control" id="entryPassword" type="password" formControlName="password" />
+      </div>
     </div>
 
     <div class="btn-group">
-      <button class="btn-success" type="submit" [disabled]="entryForm.invalid">
+      <button class="btn btn-success" type="submit" [disabled]="entryForm.invalid">
         <fa-icon icon="save"></fa-icon>
         Save
       </button>
+      <a class="btn btn-warning" [routerLink]="['/vault']" [queryParams]="vaultParam$ | async">Vault</a>
     </div>
   </form>
 </div>

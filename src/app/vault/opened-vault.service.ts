@@ -17,6 +17,12 @@ export class OpenedVaultService {
     this.openedVault$.next(vault)
   }
 
+  updateEntry(entry: VaultEntry): void {
+    //TODO: turn entries into map or object. keys = name of entry
+    //TODO: actually save/update this entry
+    //TODO: provide original entry name to know if we should replace an entry
+  }
+
   get vault$(): Observable<Vault> {
     return this.openedVault$.asObservable();
   }
