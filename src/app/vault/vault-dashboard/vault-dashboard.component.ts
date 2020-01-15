@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { vaultAddressKey } from 'app/core/constants';
-import { map, share, first, distinctUntilChanged, filter, flatMap, tap } from 'rxjs/operators';
+import { map, share, first, distinctUntilChanged, filter, flatMap, tap, shareReplay } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LockedVaultModalComponent } from '../locked-vault-modal/locked-vault-modal.component';
@@ -9,6 +9,7 @@ import Mousetrap from 'mousetrap'
 import { Vault, decodeVaultAddressParam, encodeVaultAddressParam } from '../vault';
 import { VaultEntry } from '../vault-entry';
 import { OpenedVaultService } from '../opened-vault.service';
+import { replace } from 'ramda';
 
 @Component({
   selector: 'app-vault-dashboard',
@@ -31,7 +32,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     this.vaultPath$ = this.activatedRoute.queryParamMap.pipe(
       map(decodeVaultAddressParam)
     )
-    this.vault$ = openedVaultService.vault$;
+    this.vault$ = openedVaultService.vault$.pipe(shareReplay(1));
   }
 
   ngOnInit() {
@@ -56,6 +57,12 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   lockVault(): boolean {
     this.locked$.next(true)
     return false
+  }
+
+  get entries$(): Observable<VaultEntry[]> {
+    return this.vault$.pipe(
+      map(vault => Object.values(vault.entries))
+    )
   }
 
   onEntryClicked(entry: VaultEntry) {

@@ -29,7 +29,7 @@ export class OpenedVaultService {
 
   findEntry$(name: string): Observable<VaultEntry> {
     return this.openedVault$.asObservable().pipe(
-      map(vault => vault.entries.find(entry => entry.name == name))
+      map(vault => vault.entries[name])
     )
   }
 }

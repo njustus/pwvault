@@ -7,7 +7,7 @@ export interface Vault {
   name: string
   sourceFile: string
   description: string
-  entries: VaultEntry[]
+  entries: { [name: string]: VaultEntry }
 }
 
 const getAddress = (params: ParamMap) => params.get(vaultAddressKey)

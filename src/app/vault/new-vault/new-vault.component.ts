@@ -10,14 +10,16 @@ import { Router } from '@angular/router';
 import { VaultEntry } from '../vault-entry';
 import { Vault } from '../vault';
 
-function generateFakeEntries(): VaultEntry[] {
-  return R.map(_x => ({
-    name: faker.internet.domainName(),
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    icon: 'id-card'
-  }),
-    R.repeat(1, 10))
+function generateFakeEntries(): any {
+  return R.reduce((acc, elem) => R.assoc(elem.name, elem, acc), {},
+    R.map(_x => ({
+      name: faker.internet.domainName(),
+      username: faker.internet.userName(),
+      password: faker.internet.password(),
+      icon: 'id-card'
+    }),
+      R.repeat(1, 10)) as VaultEntry[]
+  )
 }
 
 @Component({
