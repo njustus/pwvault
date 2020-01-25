@@ -3,4 +3,5 @@ export interface VaultEntry {
   username: string
   password: string
   icon: string
+  lastUpdatedAt: Date
 }

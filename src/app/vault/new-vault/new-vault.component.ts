@@ -16,7 +16,8 @@ function generateFakeEntries(): any {
       name: faker.internet.domainName(),
       username: faker.internet.userName(),
       password: faker.internet.password(),
-      icon: 'id-card'
+      icon: 'id-card',
+      lastUpdatedAt: new Date()
     }),
       R.repeat(1, 10)) as VaultEntry[]
   )

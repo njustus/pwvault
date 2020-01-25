@@ -41,6 +41,7 @@ export class OpenedVaultService {
       delete this.currentVault.entries[originalName]
     }
 
+    entry.lastUpdatedAt = new Date()
     this.currentVault.entries[entry.name] = entry
     this.updateVault(this.currentVault, this.vaultSecret, true)
   }
