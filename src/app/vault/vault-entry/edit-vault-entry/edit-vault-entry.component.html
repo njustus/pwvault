@@ -25,6 +25,8 @@
         <input class="form-control" id="entryPassword" type="password" formControlName="password" />
       </div>
     </div>
+    <input class="form-control" hidden="true" formControlName="icon">
+    <input class="form-control" hidden="true" formControlName="lastUpdatedAt">
 
     <div class="btn-group">
       <button class="btn btn-success" type="submit" [disabled]="entryForm.invalid">

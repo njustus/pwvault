@@ -28,7 +28,9 @@ export class EditVaultEntryComponent implements OnInit {
     this.entryForm = new FormGroup({
       name: new FormControl('', validators),
       username: new FormControl('', validators),
-      password: new FormControl('', validators)
+      password: new FormControl('', validators),
+      icon: new FormControl(),
+      lastUpdatedAt: new FormControl()
     })
   }
 
@@ -69,7 +71,6 @@ export class EditVaultEntryComponent implements OnInit {
     )
       .subscribe(entry => {
         this.entryName = entry.name
-        delete entry.icon //FIXME remove icon because no selection available
         this.entryForm.setValue(entry)
       })
   }
