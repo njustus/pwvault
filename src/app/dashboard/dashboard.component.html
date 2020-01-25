@@ -3,10 +3,10 @@
 
   <div class="row row-centered">
     <div class="col-6 btn-group-vertical">
-      <button class="btn btn-primary btn-lg stretch" (click)="showOpenDialog()">
+      <button class="btn btn-success btn-lg stretch" (click)="showOpenDialog()">
         <fa-icon icon="folder-open"></fa-icon>
         Open vault ...</button>
-      <a class="btn btn-secondary btn-lg stretch" [routerLink]="'/vault/new'">
+      <a class="btn btn-primary btn-lg stretch" [routerLink]="'/vault/new'">
         <fa-icon icon="plus"></fa-icon>
         New vault ...</a>
     </div>
@@ -17,7 +17,7 @@
     <p class="hint" *ngIf="recentVaults.length === 0">No previously opened vaults available!</p>
     <div class="col-6 btn-group-vertical" *ngIf="recentVaults.length > 0">
       <button
-        class="btn btn-outline-info btn-lg stretch"
+        class="btn btn-outline-secondary btn-lg stretch"
         *ngFor="let path of recentVaults"
         (click)="openVault(path)">
         {{path}}
