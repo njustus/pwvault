@@ -14,8 +14,8 @@ import { editEntryName } from 'app/core/constants';
 })
 export class EditVaultEntryComponent implements OnInit {
 
-  private entryName?: string
-  private entryForm: FormGroup
+  public entryName?: string
+  public entryForm: FormGroup
 
   constructor(
     private readonly vaultService: OpenedVaultService,
@@ -48,7 +48,7 @@ export class EditVaultEntryComponent implements OnInit {
     const entry = this.entryForm.value
     entry.icon = 'id-card'
     console.log("updating entry: ", entry)
-    this.vaultService.updateEntry(entry)
+    this.vaultService.updateEntry(entry, this.entryName)
     this.navigateToVaultDashboard()
   }
 
