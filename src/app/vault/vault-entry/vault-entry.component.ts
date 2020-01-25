@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { VaultEntry } from '../vault-entry';
 import * as R from 'ramda'
 import { clipboard } from 'electron'
@@ -21,6 +21,7 @@ interface EntryField {
 })
 export class VaultEntryComponent implements OnInit {
 
+  @Output() editEntry: EventEmitter<VaultEntry> = new EventEmitter()
   @Input() entry: VaultEntry
 
   public readonly stars: string = R.repeat('*', 5).join('')
@@ -49,5 +50,9 @@ export class VaultEntryComponent implements OnInit {
 
     //clear clipboard after 10 sec
     setTimeout(clearClipboard, 10000)
+  }
+
+  public editEntryClicked(): void {
+    this.editEntry.emit(this.entry)
   }
 }

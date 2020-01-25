@@ -15,6 +15,7 @@ export class OpenedVaultService {
   private vaultSecret?: string
 
   constructor(private readonly vaultStore: VaultStoreService) {
+    console.log("new OpenedVaultService")
     this.vault$.subscribe(vault => {
       console.log("opened current vault: ", vault)
       this.currentVault = vault
@@ -37,14 +38,21 @@ export class OpenedVaultService {
 
   updateEntry(entry: VaultEntry, originalName?: string): void {
     if (originalName) {
-      this.currentVault.entries[originalName] = entry
-    } else {
-      this.currentVault.entries[entry.name] = entry
+      delete this.currentVault.entries[originalName]
     }
+
+    this.currentVault.entries[entry.name] = entry
     this.updateVault(this.currentVault, this.vaultSecret, true)
   }
 
   get vault$(): Observable<Vault> {
     return this.openedVault$;
+  }
+
+  findEntry$(name: string): Observable<VaultEntry> {
+    console.log("find entry: ", name)
+    return this.vault$.pipe(
+      map(vault => ({ ...vault.entries[name] }))
+    )
   }
 }

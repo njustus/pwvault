@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { vaultAddressKey } from 'app/core/constants';
+import { vaultAddressKey, editEntryName } from 'app/core/constants';
 import { map, share, first, distinctUntilChanged, filter, flatMap, tap, shareReplay } from 'rxjs/operators';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -72,18 +72,18 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   }
 
   editEntry(entry?: VaultEntry) {
-    if (entry) {
-      console.error("editing not implemented yet!")
-    } else {
-      console.log("new entry")
-      this.vaultPath$.pipe(
-        map(encodeVaultAddressParam),
-        first()
-      ).subscribe(params => {
-        console.log("got params")
-        this.router.navigate(['/vault/vault-entry/edit'], { queryParams: params })
-      })
-    }
+    this.vaultPath$.pipe(
+      map(encodeVaultAddressParam),
+      first()
+    ).subscribe(params => {
+      console.log("got params")
+
+      if (entry) {
+        params[editEntryName] = encodeURIComponent(entry.name)
+      }
+
+      this.router.navigate(['/vault/vault-entry/edit'], { queryParams: params })
+    })
 
     return false
   }
