@@ -10,6 +10,7 @@ import { Vault, decodeVaultAddressParam, encodeVaultAddressParam } from '../vaul
 import { VaultEntry } from '../vault-entry';
 import { OpenedVaultService } from '../opened-vault.service';
 import { replace } from 'ramda';
+import * as R from 'ramda';
 
 @Component({
   selector: 'app-vault-dashboard',
@@ -64,7 +65,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   }
 
   get entries(): VaultEntry[] {
-    return Object.values(this.vault.entries)
+    return R.sortBy(e => e.name, R.values(this.vault.entries))
   }
 
   onEntryClicked(entry: VaultEntry) {
