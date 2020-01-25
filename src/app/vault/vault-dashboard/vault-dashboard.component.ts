@@ -19,10 +19,11 @@ import { replace } from 'ramda';
 export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   private readonly vaultPath$: Observable<string>
-  private readonly vault$: Observable<Vault>;
   private readonly locked$: Subject<boolean> = new Subject()
 
   private selectedEntry?: VaultEntry
+
+  public vault?: Vault;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
@@ -32,11 +33,14 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     this.vaultPath$ = this.activatedRoute.queryParamMap.pipe(
       map(decodeVaultAddressParam)
     )
-    this.vault$ = openedVaultService.vault$.pipe(shareReplay(1));
   }
 
   ngOnInit() {
-    this.vault$.subscribe(x => console.log("vault: ", x))
+    this.openedVaultService.vault$.subscribe(vault => {
+      console.log("unlock vault:", vault)
+      this.vault = vault
+      this.locked$.next(false)
+    })
 
     Mousetrap.bind(['command+l', 'ctrl+l'], () => {
       this.lockVault()
@@ -59,10 +63,8 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     return false
   }
 
-  get entries$(): Observable<VaultEntry[]> {
-    return this.vault$.pipe(
-      map(vault => Object.values(vault.entries))
-    )
+  get entries(): VaultEntry[] {
+    return Object.values(this.vault.entries)
   }
 
   onEntryClicked(entry: VaultEntry) {
@@ -92,10 +94,5 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
       initialState: { vaultPath }
     }
     const modalRef = this.modalService.show(LockedVaultModalComponent, options)
-
-    modalRef.content.openedVault$.pipe(first()).subscribe(vault => {
-      this.locked$.next(false)
-      this.openedVaultService.updateVault(vault)
-    })
   }
 }

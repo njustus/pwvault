@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { decodeVaultAddressParam, encodeVaultAddressParam } from 'app/vault/vault';
 import { map, first } from 'rxjs/operators';
@@ -18,7 +18,8 @@ export class EditVaultEntryComponent implements OnInit {
 
   constructor(
     private readonly vaultService: OpenedVaultService,
-    private readonly activatedRoute: ActivatedRoute) {
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router) {
 
     this.entryForm = new FormGroup({
       name: new FormControl(),
@@ -40,8 +41,16 @@ export class EditVaultEntryComponent implements OnInit {
 
   updateEntry(): void {
     const entry = this.entryForm.value
+    entry.icon = 'id-card'
     console.log("updating entry: ", entry)
     this.vaultService.updateEntry(entry)
+    this.navigateToVaultDashboard()
+  }
+
+  navigateToVaultDashboard(): void {
+    this.vaultParam$.subscribe(param => {
+      this.router.navigate(['/vault'], { queryParams: param })
+    })
   }
 
 }

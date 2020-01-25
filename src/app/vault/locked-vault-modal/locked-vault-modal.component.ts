@@ -5,6 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Vault } from '../vault';
 import { Subject } from 'rxjs';
+import { OpenedVaultService } from '../opened-vault.service';
 
 @Component({
   selector: 'app-locked-vault-modal',
@@ -17,14 +18,13 @@ export class LockedVaultModalComponent implements OnInit {
 
   readonly passwordControl: FormControl
   error?: string = undefined
-  openedVault$: Subject<Vault>
 
   constructor(
     private readonly vaultService: VaultStoreService,
+    private readonly openedVaultService: OpenedVaultService,
     private readonly modalRef: BsModalRef,
     private readonly router: Router) {
     this.passwordControl = new FormControl('', [Validators.required])
-    this.openedVault$ = new Subject()
   }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class LockedVaultModalComponent implements OnInit {
     const password = this.passwordControl.value
     this.vaultService.openVault(this.vaultPath, password)
       .then(vault => {
-        this.openedVault$.next(vault)
+        this.openedVaultService.updateVault(vault, password)
         this.modalRef.hide()
       })
       .catch(err => {

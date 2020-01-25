@@ -31,7 +31,8 @@
         <fa-icon icon="save"></fa-icon>
         Save
       </button>
-      <a class="btn btn-warning" [routerLink]="['/vault']" [queryParams]="vaultParam$ | async">Vault</a>
+
+      <button class="btn btn-warning" (click)="navigateToVaultDashboard()">Vault</button>
     </div>
   </form>
 </div>
