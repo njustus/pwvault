@@ -41,6 +41,8 @@ import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard
 import { LockedVaultModalComponent } from './vault/locked-vault-modal/locked-vault-modal.component';
 import { VaultEntryComponent } from './vault/vault-entry/vault-entry.component';
 import { EditVaultEntryComponent } from './vault/vault-entry/edit-vault-entry/edit-vault-entry.component';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+import { IconProviderService } from './core/services/icon-provider.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -76,6 +78,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     //register used icons here
     library.addIcons(
+      ...IconProviderService.iconDescriptions,
       faPlus,
       faMinus,
       faCross,

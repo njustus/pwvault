@@ -9,17 +9,18 @@ import { VaultStoreService } from '../vault-store.service';
 import { Router } from '@angular/router';
 import { VaultEntry } from '../vault-entry';
 import { Vault } from '../vault';
+import { IconProviderService } from 'app/core/services/icon-provider.service';
 
 function generateFakeEntries(): any {
   return R.reduce((acc, elem) => R.assoc(elem.name, elem, acc), {},
-    R.map(_x => ({
+    R.map(i => ({
       name: faker.internet.domainName(),
       username: faker.internet.userName(),
       password: faker.internet.password(),
-      icon: 'id-card',
+      icon: IconProviderService.icons[i],
       lastUpdatedAt: new Date()
     }),
-      R.repeat(1, 10)) as VaultEntry[]
+      R.range(0, 10)) as VaultEntry[]
   )
 }
 
