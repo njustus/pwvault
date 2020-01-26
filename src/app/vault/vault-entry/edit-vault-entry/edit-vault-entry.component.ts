@@ -7,6 +7,7 @@ import { map, first, filter, flatMap } from 'rxjs/operators';
 import { OpenedVaultService } from 'app/vault/opened-vault.service';
 import { editEntryName } from 'app/core/constants';
 import { IconProviderService, IconDescription } from 'app/core/services/icon-provider.service';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 @Component({
   selector: 'app-edit-vault-entry',
@@ -44,7 +45,7 @@ export class EditVaultEntryComponent implements OnInit {
     )
   }
 
-  iconForBrand(brand: string) {
+  iconForBrand(brand: string): IconDefinition {
     return IconProviderService.iconForBrand(brand).icon
   }
 
@@ -54,7 +55,7 @@ export class EditVaultEntryComponent implements OnInit {
 
   updateEntry(): void {
     const entry = this.entryForm.value
-    entry.icon = 'id-card'
+    entry.icon = IconProviderService.iconForBrand(entry.icon)
     console.log("updating entry: ", entry)
     this.vaultService.updateEntry(entry, this.entryName)
     this.navigateToVaultDashboard()
@@ -77,7 +78,7 @@ export class EditVaultEntryComponent implements OnInit {
     )
       .subscribe(entry => {
         this.entryName = entry.name
-        this.entryForm.setValue(entry)
+        this.entryForm.setValue({ ...entry, icon: entry.icon.brand })
       })
   }
 
