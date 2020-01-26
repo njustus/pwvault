@@ -46,6 +46,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
     Mousetrap.bind(['command+l', 'ctrl+l'], () => this.zone.run(() => this.lockVault()))
     Mousetrap.bind(['command+n', 'ctrl+n'], () => this.zone.run(() => this.editEntry()))
+    Mousetrap.bind(['command+e', 'ctrl+e'], () => this.zone.run(() => this.editEntry(this.selectedEntry)))
 
     this.locked$.asObservable().pipe(
       distinctUntilChanged(),
