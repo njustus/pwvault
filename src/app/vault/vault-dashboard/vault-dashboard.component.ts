@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { vaultAddressKey, editEntryName } from 'app/core/constants';
 import { map, share, first, distinctUntilChanged, filter, flatMap, tap, shareReplay } from 'rxjs/operators';
@@ -28,6 +28,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   constructor(private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
+    private readonly zone: NgZone,
     private readonly modalService: BsModalService,
     private readonly openedVaultService: OpenedVaultService) {
 
@@ -43,9 +44,8 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
       this.locked$.next(false)
     })
 
-    Mousetrap.bind(['command+l', 'ctrl+l'], () => {
-      this.lockVault()
-    })
+    Mousetrap.bind(['command+l', 'ctrl+l'], () => this.zone.run(() => this.lockVault()))
+    Mousetrap.bind(['command+n', 'ctrl+n'], () => this.zone.run(() => this.editEntry()))
 
     this.locked$.asObservable().pipe(
       distinctUntilChanged(),
