@@ -5,9 +5,10 @@
       <fa-icon [icon]="entry.icon.icon"></fa-icon>
       &nbsp; {{entry.name}}
 
-      <button class="btn btn-warning float-right" (click)="editEntryClicked()">
-        <fa-icon icon="pencil-alt"></fa-icon>
-      </button>
+      <div class="btn-group float-right">
+        <button class="btn btn-warning" (click)="editEntryClicked()"><fa-icon icon="pencil-alt"></fa-icon></button>
+        <button class="btn btn-danger" (click)="deleteEntryClicked()"><fa-icon icon="times"></fa-icon></button>
+      </div>
     </h4>
   </div>
   <div class="card-body">

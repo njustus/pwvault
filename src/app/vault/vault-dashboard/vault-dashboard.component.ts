@@ -41,6 +41,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     this.openedVaultService.vault$.subscribe(vault => {
       console.log("unlock vault:", vault)
       this.vault = vault
+      this.selectedEntry = undefined
       this.locked$.next(false)
     })
 

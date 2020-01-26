@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { VaultEntry } from '../vault-entry';
 import * as R from 'ramda'
 import { clipboard } from 'electron'
+import { OpenedVaultService } from '../opened-vault.service';
 
 function clearClipboard(): void {
   console.log("clearing clipboard..")
@@ -26,7 +27,7 @@ export class VaultEntryComponent implements OnInit {
 
   public readonly stars: string = R.repeat('*', 5).join('')
 
-  constructor() { }
+  constructor(private readonly vaultService: OpenedVaultService) { }
 
   public ngOnInit(): void {
   }
@@ -54,5 +55,14 @@ export class VaultEntryComponent implements OnInit {
 
   public editEntryClicked(): void {
     this.editEntry.emit(this.entry)
+  }
+
+  public deleteEntryClicked(): void {
+    const reallyDelete = window.confirm(`You really want to delete: '${this.entry.name}' ?`)
+
+    if (reallyDelete) {
+      console.log("deleting entry..")
+      this.vaultService.deleteEntry(this.entry.name)
+    }
   }
 }

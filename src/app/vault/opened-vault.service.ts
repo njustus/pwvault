@@ -46,6 +46,11 @@ export class OpenedVaultService {
     this.updateVault(this.currentVault, this.vaultSecret, true)
   }
 
+  deleteEntry(name: string): void {
+    delete this.currentVault.entries[name]
+    this.updateVault(this.currentVault, this.vaultSecret, true)
+  }
+
   get vault$(): Observable<Vault> {
     return this.openedVault$;
   }

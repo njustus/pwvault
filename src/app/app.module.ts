@@ -18,7 +18,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import {
   faPlus,
   faMinus,
-  faCross,
   faUserAlt,
   faPencilAlt,
   faKey,
@@ -30,7 +29,8 @@ import {
   faSave,
   faEye,
   faEyeSlash,
-  faClone
+  faClone,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -85,7 +85,7 @@ export class AppModule {
       ...IconProviderService.iconDescriptions,
       faPlus,
       faMinus,
-      faCross,
+      faTimes,
       faUserAlt,
       faPencilAlt,
       faKey,
