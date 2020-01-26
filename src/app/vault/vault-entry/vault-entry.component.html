@@ -1,0 +1,36 @@
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      <fa-icon [icon]="entry.icon.icon"></fa-icon>
+      &nbsp; {{entry.name}}
+
+      <div class="btn-group float-right">
+        <button class="btn btn-warning" (click)="editEntryClicked()"><fa-icon icon="pencil-alt"></fa-icon></button>
+        <button class="btn btn-danger" (click)="deleteEntryClicked()"><fa-icon icon="times"></fa-icon></button>
+      </div>
+    </h4>
+  </div>
+  <div class="card-body">
+
+    <div class="input-group" *ngFor="let field of entryFields">
+      <div class="input-group-prepend">
+        <fa-icon class="input-group-text" [icon]="field.icon"></fa-icon>
+      </div>
+      <label class="form-control" *ngIf="field.protected; else unprotected">{{stars}}</label>
+      <ng-template #unprotected>
+        <label class="form-control">{{field.value}}</label>
+      </ng-template>
+      <div class="input-group-append">
+        <button class="btn btn-secondary" (click)="copyValue(field)">
+          <fa-icon icon="clone"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-footer">
+      <small class="float-right">Updated: {{entry.lastUpdatedAt | date: 'short' }}</small>
+  </div>
+</div>

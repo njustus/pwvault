@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h2 class="modal-title">Locked Vault</h2>
+</div>
+
+<div class="modal-body row-centered">
+  <h4 class="col-12">
+    Vault at: {{vaultPath}} is locked!
+  </h4>
+
+  <div class="col-12" *ngIf="error">
+    <div class="alert alert-danger fade-in">
+      {{error}}
+    </div>
+  </div>
+
+  <form class="col-12" (submit)="unlock()">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <fa-icon class="input-group-text" icon="key"></fa-icon>
+      </div>
+      <input type="password" class="form-control" placeholder="Masterkey" [formControl]="passwordControl">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-warning" (click)="hide()">Dashboard</button>
+  <button class="btn btn-success" (click)="unlock()" [disabled]="passwordControl.invalid">
+    <fa-icon icon="unlock"></fa-icon>
+    Unlock
+  </button>
+</div>
