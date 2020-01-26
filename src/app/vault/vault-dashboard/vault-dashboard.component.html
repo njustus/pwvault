@@ -14,7 +14,11 @@
 
   <div class="row">
     <div class="col-8 list-group">
-      <button class="list-group-item list-group-item-action" *ngFor="let entry of entries" (click)="onEntryClicked(entry)">
+      <button
+        class="list-group-item list-group-item-action"
+        [class.active]="entry===selectedEntry"
+        (click)="onEntryClicked(entry)"
+        *ngFor="let entry of entries">
         <fa-icon [icon]="entry.icon.icon"></fa-icon>
         &nbsp; {{entry.name}}
       </button>
