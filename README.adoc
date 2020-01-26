@@ -4,7 +4,7 @@ image:https://img.shields.io/github/last-commit/njustus/pwvault?style=flat-squar
 image:https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg[MPL-2.0, link=https://opensource.org/licenses/MPL-2.0]
 
 
-.. is a simple password manager based on electron and angular.
+PWVault is a simple password manager based on electron and angular.
 Originally born as a playground for electron it is now quite usable as a password manager (at least if you do not need any browser extensions).
 
 == Setup
