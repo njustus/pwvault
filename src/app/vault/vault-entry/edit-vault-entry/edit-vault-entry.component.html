@@ -25,7 +25,28 @@
         <input class="form-control" id="entryPassword" type="password" formControlName="password" />
       </div>
     </div>
-    <input class="form-control" hidden="true" formControlName="icon">
+
+    <ng-template #iconTemplate let-model="item" let-index="index">
+      <h5>
+        <fa-icon [icon]="iconForBrand(model)"></fa-icon>
+        {{model}}
+      </h5>
+    </ng-template>
+
+    <div class="form-group row">
+      <label class="col-1" for="entryIcon">
+        Brand
+      </label>
+      <div class="input-grop col-11">
+        <input
+          class="form-control"
+          id="entryIcon"
+          formControlName="icon"
+          [typeaheadItemTemplate]="iconTemplate"
+          [typeahead]="availableIcons">
+      </div>
+    </div>
+
     <input class="form-control" hidden="true" formControlName="lastUpdatedAt">
 
     <div class="btn-group">

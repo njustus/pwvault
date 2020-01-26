@@ -6,6 +6,7 @@ import { decodeVaultAddressParam, encodeVaultAddressParam } from 'app/vault/vaul
 import { map, first, filter, flatMap } from 'rxjs/operators';
 import { OpenedVaultService } from 'app/vault/opened-vault.service';
 import { editEntryName } from 'app/core/constants';
+import { IconProviderService, IconDescription } from 'app/core/services/icon-provider.service';
 
 @Component({
   selector: 'app-edit-vault-entry',
@@ -13,9 +14,10 @@ import { editEntryName } from 'app/core/constants';
   styleUrls: ['./edit-vault-entry.component.scss']
 })
 export class EditVaultEntryComponent implements OnInit {
-
   public entryName?: string
   public entryForm: FormGroup
+
+  public readonly availableIcons = IconProviderService.icons.map(descr => descr.brand)
 
   constructor(
     private readonly vaultService: OpenedVaultService,
@@ -40,6 +42,10 @@ export class EditVaultEntryComponent implements OnInit {
       map(encodeVaultAddressParam),
       first()
     )
+  }
+
+  iconForBrand(brand: string) {
+    return IconProviderService.iconForBrand(brand).icon
   }
 
   ngOnInit() {
