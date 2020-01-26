@@ -38,16 +38,13 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.setupKeybindings()
     this.openedVaultService.vault$.subscribe(vault => {
       console.log("unlock vault:", vault)
       this.vault = vault
       this.selectedEntry = undefined
       this.locked$.next(false)
     })
-
-    Mousetrap.bind(['command+l', 'ctrl+l'], () => this.zone.run(() => this.lockVault()))
-    Mousetrap.bind(['command+n', 'ctrl+n'], () => this.zone.run(() => this.editEntry()))
-    Mousetrap.bind(['command+e', 'ctrl+e'], () => this.zone.run(() => this.editEntry(this.selectedEntry)))
 
     this.locked$.asObservable().pipe(
       distinctUntilChanged(),
@@ -97,5 +94,11 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
       initialState: { vaultPath }
     }
     const modalRef = this.modalService.show(LockedVaultModalComponent, options)
+  }
+
+  private setupKeybindings(): void {
+    Mousetrap.bind(['command+l', 'ctrl+l'], () => this.zone.run(() => this.lockVault()))
+    Mousetrap.bind(['command+n', 'ctrl+n'], () => this.zone.run(() => this.editEntry()))
+    Mousetrap.bind(['command+e', 'ctrl+e'], () => this.zone.run(() => this.editEntry(this.selectedEntry)))
   }
 }

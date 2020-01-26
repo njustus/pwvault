@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { VaultEntry } from '../vault-entry';
 import * as R from 'ramda'
+import Mousetrap from 'mousetrap'
 import { clipboard } from 'electron'
 import { OpenedVaultService } from '../opened-vault.service';
 
@@ -30,6 +31,7 @@ export class VaultEntryComponent implements OnInit {
   constructor(private readonly vaultService: OpenedVaultService) { }
 
   public ngOnInit(): void {
+    this.setupKeybindings()
   }
 
   public get entryFields(): EntryField[] {
@@ -64,5 +66,10 @@ export class VaultEntryComponent implements OnInit {
       console.log("deleting entry..")
       this.vaultService.deleteEntry(this.entry.name)
     }
+  }
+
+  private setupKeybindings(): void {
+    Mousetrap.bind(['command+b', 'ctrl+b'], () => this.copyValue(this.entryFields[0]))
+    Mousetrap.bind(['command+c', 'ctrl+c'], () => this.copyValue(this.entryFields[1]))
   }
 }
