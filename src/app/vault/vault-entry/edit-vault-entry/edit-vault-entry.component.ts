@@ -8,6 +8,7 @@ import { OpenedVaultService } from 'app/vault/opened-vault.service';
 import { editEntryName } from 'app/core/constants';
 import { IconProviderService, IconDescription } from 'app/core/services/icon-provider.service';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/public_api';
 
 @Component({
   selector: 'app-edit-vault-entry',
@@ -33,6 +34,7 @@ export class EditVaultEntryComponent implements OnInit {
       username: new FormControl('', validators),
       password: new FormControl('', validators),
       icon: new FormControl(),
+      url: new FormControl(),
       lastUpdatedAt: new FormControl()
     })
   }
@@ -51,6 +53,14 @@ export class EditVaultEntryComponent implements OnInit {
 
   ngOnInit() {
     this.setEditEntryName()
+  }
+
+  onBrandSelect($event: TypeaheadMatch): void {
+    const brand = $event.item
+    const url = IconProviderService.urlForBrand(brand)
+    if (url) {
+      this.entryForm.get('url').setValue(url)
+    }
   }
 
   updateEntry(): void {
@@ -78,7 +88,11 @@ export class EditVaultEntryComponent implements OnInit {
     )
       .subscribe(entry => {
         this.entryName = entry.name
-        this.entryForm.setValue({ ...entry, icon: entry.icon.brand })
+        this.entryForm.setValue({
+          ...entry,
+          url: (entry.url) ? entry.url : '',
+          icon: entry.icon.brand
+        })
       })
   }
 
