@@ -18,7 +18,8 @@ function generateFakeEntries(): any {
       username: faker.internet.userName(),
       password: faker.internet.password(),
       icon: IconProviderService.icons[i],
-      lastUpdatedAt: new Date()
+      lastUpdatedAt: new Date(),
+      url: (i % 2 == 0) ? faker.internet.url() : undefined
     }),
       R.range(0, 10)) as VaultEntry[]
   )

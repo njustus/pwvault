@@ -6,4 +6,5 @@ export interface VaultEntry {
   password: string
   icon: IconDescription
   lastUpdatedAt: Date
+  url?: string
 }

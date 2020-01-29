@@ -35,17 +35,17 @@ export class VaultEntryComponent implements OnInit {
   }
 
   public get entryFields(): EntryField[] {
-    return [
-      {
-        icon: 'id-card',
-        value: this.entry.username
-      },
-      {
-        icon: 'key',
-        value: this.entry.password,
-        protected: true
-      }
-    ]
+    return [{
+      icon: 'id-card',
+      value: this.entry.username
+    }, {
+      icon: 'key',
+      value: this.entry.password,
+      protected: true
+    }, {
+      icon: 'globe',
+      value: this.entry.url
+    }]
   }
 
   public copyValue(field: EntryField): void {

@@ -30,7 +30,8 @@ import {
   faEye,
   faEyeSlash,
   faClone,
-  faTimes
+  faTimes,
+  faGlobe
 } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -97,7 +98,8 @@ export class AppModule {
       faSave,
       faEye,
       faEyeSlash,
-      faClone
+      faClone,
+      faGlobe
     )
   }
 }
