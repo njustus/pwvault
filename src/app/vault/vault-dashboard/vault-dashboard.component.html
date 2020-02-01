@@ -13,14 +13,27 @@
   </nav>
 
   <div class="row">
+    <div class="col-12">
+      <h2>Vault: {{vault.name}}</h2>
+      <p class="small">{{vault.description}}</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-8 list-group">
       <button
         class="list-group-item list-group-item-action"
         [class.active]="entry===selectedEntry"
         (click)="onEntryClicked(entry)"
         *ngFor="let entry of entries">
-        <fa-icon [icon]="entry.icon.icon"></fa-icon>
-        &nbsp; {{entry.name}}
+        <h5>
+          <fa-icon [icon]="entry.icon.icon"></fa-icon>
+          &nbsp;{{entry.name}}
+        </h5>
+        <span class="small">
+          <fa-icon icon="user-alt"></fa-icon>
+          &nbsp;{{entry.username}}
+        </span>
       </button>
     </div>
 
