@@ -9,7 +9,7 @@ export interface IconDescription {
 }
 
 export class IconProviderService {
-  public static readonly icons: IconDescription[] = [
+  public readonly icons: IconDescription[] = [
     { icon: faDocker, brand: 'Docker', url: 'https://hub.docker.com' },
     { icon: faFacebook, brand: 'Facebook', url: 'https://de-de.facebook.com' },
     { icon: faFirefox, brand: 'Firefox', url: 'https://www.mozilla.org' },
@@ -23,16 +23,18 @@ export class IconProviderService {
     { icon: faDesktop, brand: 'Computer' },
   ]
 
-  public static iconForBrand(brand: string): IconDescription {
-    return IconProviderService.icons.find(descr => descr.brand === brand)
+  constructor() { }
+
+  public iconForBrand(brand: string): IconDescription {
+    return this.icons.find(descr => descr.brand === brand)
   }
 
-  public static get iconDescriptions(): IconDefinition[] {
-    return IconProviderService.icons.map(descr => descr.icon)
+  public get iconDescriptions(): IconDefinition[] {
+    return this.icons.map(descr => descr.icon)
   }
 
-  public static urlForBrand(brand: string): string | undefined {
-    const descr = IconProviderService.icons.find(icon => icon.brand === brand)
+  public urlForBrand(brand: string): string | undefined {
+    const descr = this.icons.find(icon => icon.brand === brand)
     return descr.url
   }
 }

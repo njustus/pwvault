@@ -19,11 +19,12 @@ export class EditVaultEntryComponent implements OnInit {
   public entryName?: string
   public entryForm: FormGroup
 
-  public readonly availableIcons = IconProviderService.icons.map(descr => descr.brand)
+  public readonly availableIcons = this.iconProvider.icons.map(descr => descr.brand)
 
   constructor(
     private readonly vaultService: OpenedVaultService,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly iconProvider: IconProviderService,
     private readonly router: Router) {
 
     const validators = [Validators.required,
@@ -48,7 +49,7 @@ export class EditVaultEntryComponent implements OnInit {
   }
 
   iconForBrand(brand: string): IconDefinition {
-    return IconProviderService.iconForBrand(brand).icon
+    return this.iconProvider.iconForBrand(brand).icon
   }
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class EditVaultEntryComponent implements OnInit {
 
   onBrandSelect($event: TypeaheadMatch): void {
     const brand = $event.item
-    const url = IconProviderService.urlForBrand(brand)
+    const url = this.iconProvider.urlForBrand(brand)
     if (url) {
       this.entryForm.get('url').setValue(url)
     }
@@ -65,7 +66,7 @@ export class EditVaultEntryComponent implements OnInit {
 
   updateEntry(): void {
     const entry = this.entryForm.value
-    entry.icon = IconProviderService.iconForBrand(entry.icon)
+    entry.icon = this.iconProvider.iconForBrand(entry.icon)
     console.log("updating entry: ", entry)
     this.vaultService.updateEntry(entry, this.entryName)
     this.navigateToVaultDashboard()

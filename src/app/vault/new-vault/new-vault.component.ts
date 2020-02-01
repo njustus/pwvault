@@ -11,13 +11,13 @@ import { VaultEntry } from '../vault-entry';
 import { Vault } from '../vault';
 import { IconProviderService } from 'app/core/services/icon-provider.service';
 
-function generateFakeEntries(): any {
+function generateFakeEntries(iconProvider: IconProviderService): any {
   return R.reduce((acc, elem) => R.assoc(elem.name, elem, acc), {},
     R.map(i => ({
       name: faker.internet.domainName(),
       username: faker.internet.userName(),
       password: faker.internet.password(),
-      icon: IconProviderService.icons[i],
+      icon: iconProvider.icons[i],
       lastUpdatedAt: new Date(),
       url: (i % 2 == 0) ? faker.internet.url() : undefined
     }),
@@ -35,6 +35,7 @@ export class NewVaultComponent implements OnInit {
   public readonly vaultForm: FormGroup;
 
   constructor(private readonly vaultService: VaultStoreService,
+    private readonly iconProvider: IconProviderService,
     private readonly router: Router) {
     this.vaultForm = new FormGroup({
       sourceFile: new FormControl('', [
@@ -76,7 +77,7 @@ export class NewVaultComponent implements OnInit {
     const vault = this.vaultForm.value
     const password = vault.password
     delete vault.password
-    vault.entries = generateFakeEntries()
+    vault.entries = generateFakeEntries(this.iconProvider)
 
     console.log("creating vault: ", vault)
     this.vaultService.saveVault(vault, password)

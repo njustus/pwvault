@@ -31,7 +31,12 @@ import {
   faEyeSlash,
   faClone,
   faTimes,
-  faGlobe
+  faGlobe,
+  faMailBulk,
+  faMoneyCheckAlt,
+  faCode,
+  faTerminal,
+  faUsers
 } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -73,17 +78,17 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     })
   ],
-  providers: [],
+  providers: [IconProviderService],
   bootstrap: [AppComponent],
   entryComponents: [
     LockedVaultModalComponent
   ]
 })
 export class AppModule {
-  constructor(library: FaIconLibrary) {
+  constructor(library: FaIconLibrary, iconProvider: IconProviderService) {
     //register used icons here
     library.addIcons(
-      ...IconProviderService.iconDescriptions,
+      ...iconProvider.iconDescriptions,
       faPlus,
       faMinus,
       faTimes,
@@ -99,7 +104,11 @@ export class AppModule {
       faEye,
       faEyeSlash,
       faClone,
-      faGlobe
+      faGlobe,
+      faMailBulk,
+      faMoneyCheckAlt,
+      faTerminal,
+      faUsers
     )
   }
 }
