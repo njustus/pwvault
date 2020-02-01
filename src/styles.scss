@@ -1,7 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
+@import '~assets/theme/superhero-variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~assets/theme/superhero-bootswatch';
 
-  height: 100%;
+@import '~assets/scss/util';
+
+.row {
+  &-centered {
+    justify-content: center;
+  }
+}
+
+.hint {
+  @extend .text-info;
+  text-align: center;
+}
+
+.fade-in {
+  animation: 1s fadein;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

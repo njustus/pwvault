@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row row-centered">
+    <h1>Create a new vault..</h1>
+  </div>
+
+  <div class="row row-centered">
+    <form [formGroup]="vaultForm" class="col-6">
+      <label for="sourceFile">
+        <fa-icon icon="folder-open"></fa-icon>
+        Vault file:
+      </label>
+      <div class="input-group mb-3">
+        <input class="form-control" formControlName="sourceFile" placeholder="Vault file" disabled="true" />
+        <div class="input-group-append">
+          <button class="btn btn-secondary" (click)="selectVaultFile()">Select</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Vault name:</label>
+        <input class="form-control" id="name" formControlName="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          <fa-icon icon="key"></fa-icon>
+          Master key:
+        </label>
+        <input class="form-control" id="password" type="password" formControlName="password" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Vault description:</label>
+        <input class="form-control" id="description" formControlName="description" />
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" [disabled]="vaultForm.invalid" (click)="createVault()">
+          <fa-icon icon="save"></fa-icon>
+          Create
+        </button>
+        <button class="btn btn-warning" [disabled]="true">Reset</button>
+      </div>
+      <a class="btn btn-secondary float-right" [routerLink]="'/'">Dashboard</a>
+    </form>
+  </div>
+</div>

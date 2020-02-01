@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import '../polyfills';
 
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -13,10 +14,38 @@ import { AppRoutingModule } from './app-routing.module';
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faMinus,
+  faUserAlt,
+  faPencilAlt,
+  faKey,
+  faUnlock,
+  faLock,
+  faIdCard,
+  faAt,
+  faFolderOpen,
+  faSave,
+  faEye,
+  faEyeSlash,
+  faClone,
+  faTimes,
+  faGlobe
+} from '@fortawesome/free-solid-svg-icons';
 
-import { HomeModule } from './home/home.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewVaultComponent } from './vault/new-vault/new-vault.component';
+import { VaultDashboardComponent } from './vault/vault-dashboard/vault-dashboard.component';
+import { LockedVaultModalComponent } from './vault/locked-vault-modal/locked-vault-modal.component';
+import { VaultEntryComponent } from './vault/vault-entry/vault-entry.component';
+import { EditVaultEntryComponent } from './vault/vault-entry/edit-vault-entry/edit-vault-entry.component';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+import { IconProviderService } from './core/services/icon-provider.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,15 +53,18 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DashboardComponent, NewVaultComponent, VaultDashboardComponent, LockedVaultModalComponent, VaultEntryComponent, EditVaultEntryComponent],
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
-    HomeModule,
     AppRoutingModule,
+    FontAwesomeModule,
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -42,6 +74,32 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    LockedVaultModalComponent
+  ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    //register used icons here
+    library.addIcons(
+      ...IconProviderService.iconDescriptions,
+      faPlus,
+      faMinus,
+      faTimes,
+      faUserAlt,
+      faPencilAlt,
+      faKey,
+      faUnlock,
+      faLock,
+      faIdCard,
+      faAt,
+      faFolderOpen,
+      faSave,
+      faEye,
+      faEyeSlash,
+      faClone,
+      faGlobe
+    )
+  }
+}

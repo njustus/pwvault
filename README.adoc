@@ -1,0 +1,19 @@
+= PasswordVault (PWVault)
+
+image:https://img.shields.io/github/last-commit/njustus/pwvault?style=flat-square[GitHub last commit]
+image:https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg[MPL-2.0, link=https://opensource.org/licenses/MPL-2.0]
+
+
+PWVault is a simple password manager based on electron and angular.
+Originally born as a playground for electron it is now quite usable as a password manager (at least if you do not need any browser extensions).
+
+image:./doc/vault-entries.png[Overview]
+image:./doc/new-entry.png[New entry]
+
+== Setup
+
+This project is based on the awesome https://github.com/maximegris/angular-electron[angular-electron]
+project created by maximegris.
+
+Developing and starting the project is quite simple, just run `npm start` and open this project in your favourite editor.
+The electorn app starts in the background and a chrome window will popup.
