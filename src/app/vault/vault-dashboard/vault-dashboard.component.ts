@@ -7,10 +7,13 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LockedVaultModalComponent } from '../locked-vault-modal/locked-vault-modal.component';
 import Mousetrap from 'mousetrap'
 import { Vault, decodeVaultAddressParam, encodeVaultAddressParam } from '../vault';
-import { VaultEntry } from '../vault-entry';
+import { VaultEntry, entryHasCategory } from '../vault-entry';
 import { OpenedVaultService } from '../opened-vault.service';
 import { replace } from 'ramda';
 import * as R from 'ramda';
+import { CategoryProviderService, Category } from 'app/core/services/category-provider.service';
+
+const allEntries: Category = { name: 'All', icon: 'id-card' }
 
 @Component({
   selector: 'app-vault-dashboard',
@@ -21,16 +24,20 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
 
   private readonly vaultPath$: Observable<string>
   private readonly locked$: Subject<boolean> = new Subject()
+  private displayedEntries?: VaultEntry[]
 
-  private selectedEntry?: VaultEntry
-
+  public selectedEntry?: VaultEntry;
+  public selectedCategory?: Category;
   public vault?: Vault;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly zone: NgZone,
     private readonly modalService: BsModalService,
+    private readonly categoryProvider: CategoryProviderService,
     private readonly openedVaultService: OpenedVaultService) {
+
+    this.selectedCategory = this.categories[0]
 
     this.vaultPath$ = this.activatedRoute.queryParamMap.pipe(
       map(decodeVaultAddressParam)
@@ -42,6 +49,7 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     this.openedVaultService.vault$.subscribe(vault => {
       console.log("unlock vault:", vault)
       this.vault = vault
+      this.displayedEntries = R.values(vault.entries)
       this.selectedEntry = undefined
       this.locked$.next(false)
     })
@@ -64,12 +72,28 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
   }
 
   get entries(): VaultEntry[] {
-    return R.sortBy(e => e.name, R.values(this.vault.entries))
+    return R.sortBy(e => e.name, this.displayedEntries)
+  }
+
+  get categories(): Category[] {
+    return [allEntries, ...this.categoryProvider.categories]
   }
 
   onEntryClicked(entry: VaultEntry) {
     this.selectedEntry = entry
   }
+
+  onCategoryClicked(category: Category) {
+    this.selectedCategory = category
+    const entries = R.values(this.vault.entries)
+
+    this.displayedEntries = (category === allEntries) ?
+      entries :
+      R.filter(e => entryHasCategory(e, category), entries);
+
+    console.log("cat: ", category, "source entries: ", entries, "entries: ", this.displayedEntries)
+  }
+
 
   editEntry(entry?: VaultEntry) {
     this.vaultPath$.pipe(

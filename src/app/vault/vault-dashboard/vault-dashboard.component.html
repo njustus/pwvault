@@ -20,7 +20,21 @@
   </div>
 
   <div class="row">
-    <div class="col-8 list-group">
+    <div class="col-2">
+      <div class="btn-group-vertical">
+        <button
+          class="btn btn-secondary"
+          [class.active]="category===selectedCategory"
+          (click)="onCategoryClicked(category)"
+          *ngFor="let category of categories">
+          <fa-icon icon="tags"></fa-icon>&nbsp;
+          <fa-icon [icon]="category.icon"></fa-icon>
+          &nbsp; {{category.name}}
+        </button>
+      </div>
+    </div>
+
+    <div class="col-6 list-group">
       <button
         class="list-group-item list-group-item-action"
         [class.active]="entry===selectedEntry"

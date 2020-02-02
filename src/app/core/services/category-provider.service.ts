@@ -5,9 +5,7 @@ export interface Category {
   icon: string
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CategoryProviderService {
 
   public readonly mail: Category = { name: 'E-Mail', icon: 'mail-bulk' }
@@ -15,11 +13,12 @@ export class CategoryProviderService {
   public readonly coding: Category = { name: 'Coding', icon: 'terminal' }
 
   public readonly social: Category = { name: 'Social', icon: 'users' }
-  public readonly it: Category = { name: 'IT', icon: 'computer' }
+  public readonly it: Category = { name: 'IT', icon: 'desktop' }
 
   private readonly defaultCategories: Category[] = [
     this.mail,
     this.finance,
+    this.social,
     this.coding,
     this.it
   ]

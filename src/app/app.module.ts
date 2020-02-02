@@ -36,7 +36,8 @@ import {
   faMoneyCheckAlt,
   faCode,
   faTerminal,
-  faUsers
+  faUsers,
+  faTags
 } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -78,7 +79,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     })
   ],
-  providers: [IconProviderService],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     LockedVaultModalComponent
@@ -108,7 +109,8 @@ export class AppModule {
       faMailBulk,
       faMoneyCheckAlt,
       faTerminal,
-      faUsers
+      faUsers,
+      faTags
     )
   }
 }

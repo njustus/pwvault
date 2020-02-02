@@ -10,6 +10,7 @@ export interface IconDescription {
   category: Category
 }
 
+@Injectable()
 export class IconProviderService {
   public readonly icons: IconDescription[] = [
     { icon: faDocker, brand: 'Docker', url: 'https://hub.docker.com', category: this.categories.coding },
