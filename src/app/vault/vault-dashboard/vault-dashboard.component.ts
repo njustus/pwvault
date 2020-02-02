@@ -90,8 +90,6 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     this.displayedEntries = (category === allEntries) ?
       entries :
       R.filter(e => entryHasCategory(e, category), entries);
-
-    console.log("cat: ", category, "source entries: ", entries, "entries: ", this.displayedEntries)
   }
 
 
