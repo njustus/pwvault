@@ -79,17 +79,26 @@ export class VaultDashboardComponent implements OnInit, OnDestroy {
     return [allEntries, ...this.categoryProvider.categories]
   }
 
+  entriesPerCategory(category: Category): VaultEntry[] {
+    const entries = R.values(this.vault.entries)
+
+    return (category === allEntries) ?
+      entries :
+      R.filter(e => entryHasCategory(e, category), entries);
+  }
+
   onEntryClicked(entry: VaultEntry) {
     this.selectedEntry = entry
   }
 
   onCategoryClicked(category: Category) {
     this.selectedCategory = category
-    const entries = R.values(this.vault.entries)
+    this.displayedEntries = this.entriesPerCategory(category)
+  }
 
-    this.displayedEntries = (category === allEntries) ?
-      entries :
-      R.filter(e => entryHasCategory(e, category), entries);
+  entryCountPerCategory(category: Category): number {
+    const entries = R.values(this.vault.entries)
+    return this.entriesPerCategory(category).length
   }
 
 

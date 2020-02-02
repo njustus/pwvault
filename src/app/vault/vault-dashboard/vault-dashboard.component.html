@@ -1,5 +1,5 @@
 
-<div class="container" *ngIf="vault">
+<div class="container-fluid" *ngIf="vault">
   <nav class="navbar navbar-expand row">
     <ul class="navbar-nav col-3">
       <li class="nav-item"><a class="nav-link" [routerLink]="'/dashboard'">Dashboard</a></li>
@@ -20,9 +20,9 @@
   </div>
 
   <div class="row">
-    <div class="col-2">
+    <div class="col-3">
       <h5 class="text-primary">Categories</h5>
-      <div class="btn-group-vertical">
+      <div class="btn-group-vertical stretch">
         <button
           class="btn btn-secondary"
           [class.active]="category===selectedCategory"
@@ -31,11 +31,14 @@
           <fa-icon icon="tags"></fa-icon>&nbsp;
           <fa-icon [icon]="category.icon"></fa-icon>
           &nbsp; {{category.name}}
+          <span class="badge badge-pill badge-info float-right">
+            {{entryCountPerCategory(category)}}
+          </span>
         </button>
       </div>
     </div>
 
-    <div class="col-6 list-group">
+    <div class="col-5 list-group">
       <button
         class="list-group-item list-group-item-action"
         [class.active]="entry===selectedEntry"
